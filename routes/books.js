@@ -11,11 +11,11 @@ router.post("/add-book", async (req, res) => {
         VALUES(?,?,?,?,now())`
         const new_book = [book_title, urthor, genre, year_published]
         await db.query(sqlQuery, new_book)
-        res.sendStatus.json({ "Message": "Book added successfully" })
+        res.sendStatus(201)
 
     }
     catch (error) {
-        res.json(error.Message)
+        res.json(error.message)
     }
 
 })
@@ -43,8 +43,23 @@ res.send(error)
     }
 })
 
-// UPDATE BOOK DATA 
-router.put("/update")
+// UPDATE BOOK DATA BY ID
+router.put("/update/:book_id", async(req,res)=>{
+   
+    try {
+        const book_id = req.params.book_id
+        const { book_title, urthor, genre, year_published } = req.body
+        const new_update = [book_title, urthor, genre, year_published, book_id]
+        const sqlQuery = `UPDATE Book
+        SET book_title = ? , urthor = ? , genre = ? , year_published = ? , updated_on = now()
+         WHERE bookID = ? `
+         await db.query(sqlQuery, new_update)
+         res.sendStatus(200)
+        
+    } catch (error) {
+        res.json(error.message)
+    }
+})
 
 
 
