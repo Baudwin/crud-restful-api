@@ -15,7 +15,7 @@ router.post("/add-book", async (req, res) => {
 
     }
     catch (error) {
-        res.json(error.message)
+        res.json(error)
     }
 
 })
@@ -24,10 +24,10 @@ router.post("/add-book", async (req, res) => {
 router.get("/books", async (req, res) => {
     try {
         const sqlQuery = `SELECT * FROM Book`
-       const [books] = await db.query(sqlQuery)
+        const [books] = await db.query(sqlQuery)
         res.json(books)
     } catch (error) {
-res.send(error)
+        res.json(error)
     }
 })
 
@@ -36,16 +36,16 @@ router.get("/book/:book_id", async (req, res) => {
     const book_id = req.params.book_id
     try {
         const sqlQuery = `SELECT * FROM Book WHERE bookID =? `
-       const [book] = await db.query(sqlQuery,book_id)
+        const [book] = await db.query(sqlQuery, book_id)
         res.json(book)
     } catch (error) {
-res.send(error)
+        res.json(error)
     }
 })
 
 // UPDATE BOOK DATA BY ID
-router.put("/update/:book_id", async(req,res)=>{
-   
+router.put("/update/:book_id", async (req, res) => {
+
     try {
         const book_id = req.params.book_id
         const { book_title, urthor, genre, year_published } = req.body
@@ -53,16 +53,26 @@ router.put("/update/:book_id", async(req,res)=>{
         const sqlQuery = `UPDATE Book
         SET book_title = ? , urthor = ? , genre = ? , year_published = ? , updated_on = now()
          WHERE bookID = ? `
-         await db.query(sqlQuery, new_update)
-         res.sendStatus(200)
-        
+        await db.query(sqlQuery, new_update)
+        res.sendStatus(200)
+
     } catch (error) {
         res.json(error.message)
     }
 })
 
+// DELETE BOOK BY ID
 
-
+router.delete("/delete/:book_id", async (req, res) => {
+    const book_id = req.params.book_id
+    try {
+        const sqlQuery = `DELETE FROM Book WHERE bookID =? `
+         await db.query(sqlQuery, book_id)
+        res.sendStatus(200)
+    } catch (error) {
+        res.json(error)
+    }
+})
 
 
 
