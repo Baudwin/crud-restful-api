@@ -31,10 +31,20 @@ res.send(error)
     }
 })
 
+// GET SINGLE BOOK BY ID
+router.get("/book/:book_id", async (req, res) => {
+    const book_id = req.params.book_id
+    try {
+        const sqlQuery = `SELECT * FROM Book WHERE bookID =? `
+       const [book] = await db.query(sqlQuery,book_id)
+        res.json(book)
+    } catch (error) {
+res.send(error)
+    }
+})
 
-
-
-
+// UPDATE BOOK DATA 
+router.put("/update")
 
 
 
