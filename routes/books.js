@@ -80,7 +80,7 @@ router.get("/tables", async(req,res)=>{
         let [tables] = await db.query(cmd)
         res.send(tables)
     } catch (error) {
-        
+        res.send(error.message)
     }
 })
 
