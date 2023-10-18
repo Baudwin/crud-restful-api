@@ -8,7 +8,7 @@ const db = mysql.createPool({
     port: process.env.PORT,
     database: process.env.DB_NAME,
     user: process.env.USER_NAME,
-    password: process.env.DB_PASSWORD
+    password: process.env.DB_PASSWORD,
 
 }).promise()
 
