@@ -74,8 +74,8 @@ router.delete("/delete/:book_id", async (req, res) => {
     }
 })
 
-router.get("/", async(req,res)=>{
-    let cmd = `DESC books`
+router.get("/allmybooks", async(req,res)=>{
+    let cmd = `select * from books`
     try {
         let [tables] = await db.query(cmd)
         res.json(tables)
