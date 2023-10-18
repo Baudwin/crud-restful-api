@@ -18,6 +18,6 @@ app.use("/api/v1", books)
 
 
 
-app.listen(8080 || PORT, ()=>{
+app.listen(PORT, ()=>{
     console.log("server running");
 })
