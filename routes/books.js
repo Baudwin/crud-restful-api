@@ -2,15 +2,7 @@ const { Router } = require('express')
 const router = Router()
 const db = require("../config/db")
 
-router.get("/allmybooks", async(req,res)=>{
-    let cmd = `select * from books`
-    try {
-        let [bks] = await db.query(cmd)
-        res.json(bks)
-    } catch (error) {
-        res.send(error)
-    }
-})
+
 
 // ADD NEW BOOK 
 
